@@ -5,7 +5,7 @@ namespace TestProject1
 {
     public class Tests
     {
-        //TC1.1
+        //TC1.1-Return SAD
         [Test]
         public void GivenSadMood_WhenAnalyze_shouldReturnSad()
         {
@@ -15,7 +15,7 @@ namespace TestProject1
 
             Assert.AreEqual("SAD", result1);
         }
-        //TC1.2
+        //TC1.2 - Return Happy
         [Test]
         public void GivenAnyMood_WhenAnalyze_shouldReturnSad()
         {
