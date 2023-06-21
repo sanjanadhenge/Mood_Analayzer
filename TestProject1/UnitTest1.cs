@@ -9,9 +9,8 @@ namespace TestProject1
         [Test]
         public void GivenSadMood_WhenAnalyze_shouldReturnSad()
         {
-            string message = "I am in Sad Mood";
-            MoodAnalyze moodAnalyzer = new MoodAnalyze();
-            string result1 = moodAnalyzer.Analyze(message);
+            MoodAnalyze moodAnalyzer = new MoodAnalyze("I am in Sad Mood");
+            string result1 = moodAnalyzer.Analyze();
 
             Assert.AreEqual("SAD", result1);
         }
@@ -19,9 +18,8 @@ namespace TestProject1
         [Test]
         public void GivenAnyMood_WhenAnalyze_shouldReturnSad()
         {
-            string message = "I am in Any Mood";
-            MoodAnalyze moodAnalyzer = new MoodAnalyze();
-            string result = moodAnalyzer.Analyze(message);
+            MoodAnalyze moodAnalyzer = new MoodAnalyze("I am in Happy Mood");
+            string result = moodAnalyzer.Analyze();
 
             Assert.AreEqual("HAPPY", result);
         }

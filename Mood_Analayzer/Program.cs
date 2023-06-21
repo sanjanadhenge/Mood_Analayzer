@@ -10,7 +10,7 @@ namespace Mood_Analayzer
     {
        public static void Main(string[] args)
         {
-            MoodAnalyze moodAnalayze = new MoodAnalyze();
+           // MoodAnalyze moodAnalayze = new MoodAnalyze();
         }
     }
 }

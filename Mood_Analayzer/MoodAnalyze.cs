@@ -8,9 +8,18 @@ namespace Mood_Analayzer
 {
     public class MoodAnalyze
     {
-        public string Analyze(string str)
+        string message;
+        public MoodAnalyze()
         {
-            if(str.ToLower().Contains("sad"))
+            this.message = message;
+        }
+        public MoodAnalyze(string message)
+        {
+            this.message = message;
+        }
+        public string Analyze()
+        {
+            if(this.message.ToLower().Contains("sad"))
             {
                 return "SAD";
             }
