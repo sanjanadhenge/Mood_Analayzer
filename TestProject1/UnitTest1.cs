@@ -23,5 +23,16 @@ namespace TestProject1
 
             Assert.AreEqual("HAPPY", result);
         }
+        //TC 2.1
+        [Test]
+        public void GivenNullMood_WhenAnalyze_shouldReturnSad()
+        {
+
+            string message = null;
+            MoodAnalyze moodAnalyzer = new MoodAnalyze(message);
+            string result = moodAnalyzer.Analyze();
+            Assert.AreEqual("HAPPY", result);
+
+        }
     }
 }
