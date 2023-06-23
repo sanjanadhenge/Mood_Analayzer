@@ -34,5 +34,37 @@ namespace TestProject1
             Assert.AreEqual("HAPPY", result);
 
         }
+        //TC3.1
+        [Test]
+        public void GivenInvalidMood_WhenAnalyze_shouldReturnSad()
+        {
+            try
+            {
+                string message = null;
+                MoodAnalyze moodAnalyzer = new MoodAnalyze(message);
+                string result = moodAnalyzer.Analyze();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Message is null");
+            }
+        }
+        //TC3.2
+        [Test]
+        public void GivenEmptyMood_WhenAnalyze_shouldReturnSad()
+        {
+            try
+            {
+                string message = "";
+                MoodAnalyze moodAnalyzer = new MoodAnalyze(message);
+                string result = moodAnalyzer.Analyze();
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Message is Empty");
+            }
+
+
+        }
     }
 }

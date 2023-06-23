@@ -31,7 +31,7 @@ namespace Mood_Analayzer
             }
             catch (Exception)
             {
-                return "HAPPY";
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NULL_MOOD, "Message is null");
             }
 
         }
