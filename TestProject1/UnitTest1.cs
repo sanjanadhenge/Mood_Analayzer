@@ -111,6 +111,45 @@ namespace TestProject1
                 Assert.AreEqual(ex.Message, "Constructor Not Found");
             }
         }
+        //TC5.1
+        [Test]
+        public void GivenClassName_WhenAnalyze_ShouldReturnMoodAnalyzeObjectUsingParamertizedConstructor()
+        {
+            object expected = new MoodAnalyze("HAPPY");
+            object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "MoodAnalyze", "HAPPY");
+            expected.Equals(obj);
+
+        }
+        //TC5.2
+        [Test]
+        public void GivenImproperClassName_WhenAnalyze_ShouldReturnMoodAnalyzeObjectUsingParamertizedConstructor()
+        {
+            try
+            {
+                object expected = new MoodAnalyze("HAPPY");
+                object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.Moodanalyze", "MoodAnalyze", "HAPPY");
+                expected.Equals(obj);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Class Not Found");
+            }
+        }
+        //TC5.3
+        [Test]
+        public void GivenImproperConstructorName_WhenAnalyze_ShouldReturnMoodAnalyzeObjectUsingParamertizedConstructor()
+        {
+            try
+            {
+                object expected = new MoodAnalyze("HAPPY");
+                object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "Moodanalyze", "HAPPY");
+                expected.Equals(obj);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Constructor Not Found");
+            }
+        }
 
     }
 }
