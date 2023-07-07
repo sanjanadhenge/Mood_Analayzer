@@ -150,6 +150,28 @@ namespace TestProject1
                 Assert.AreEqual(ex.Message, "Constructor Not Found");
             }
         }
+        //TC6.1
+        [Test]
+        public void GivenMessageHappy_WhenAnalyze_ShouldReturnHappyUsingInvoke()
+        {
+            string result = MoodAnalyzerFactory.InvokeMethod("Happy", "Analyze");
+            Assert.AreEqual("HAPPY", result);
 
+        }
+        //TC6.2
+        [Test]
+        public void GivenWrongMethod_WhenAnalyze_ShouldThrowException()
+        {
+            try
+            {
+                string result = MoodAnalyzerFactory.InvokeMethod("Happy", "Analyze_Mood");
+                Assert.AreEqual("HAPPY", result);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Method Not Found");
+            }
+
+        }
     }
 }
