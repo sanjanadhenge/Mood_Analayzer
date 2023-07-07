@@ -8,14 +8,35 @@ using System.Threading.Tasks;
 
 namespace Mood_Analayzer
 {
-    public class MoodAnalyzerFactory
+    public class MoodAnalyzerReflector
     {
+        public static string ChangeMoodDyanmically(string fieldName, string message)
+        {
+            try
+            {
+                MoodAnalyze moodAnalyze = new MoodAnalyze(message);
+                Type type = typeof(MoodAnalyze);
+                FieldInfo fieldInfo = type.GetField(fieldName);
+                if (message == null)
+                {
+                    throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, "Message should not be null");
+                }
+                message = InvokeMethod(message, "Analyze");
+                fieldInfo.SetValue(moodAnalyze, message);
+
+                return moodAnalyze.message;
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, "Field Not Found");
+            }
+        }
         public static string InvokeMethod(string message, string methodName)
         {
             try
             {
                 Type type = Type.GetType("Mood_Analayzer.MoodAnalyze");
-                object moodAnalyze = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "MoodAnalyze", message);
+                object moodAnalyze = MoodAnalyzerReflector.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "MoodAnalyze", message);
                 MethodInfo methodInfo = type.GetMethod(methodName);
                 object mood = methodInfo.Invoke(moodAnalyze, null);
                 return mood.ToString();

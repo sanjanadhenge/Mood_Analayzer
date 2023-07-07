@@ -72,7 +72,7 @@ namespace TestProject1
         {
             string message = null;
             object expected = new MoodAnalyze(message);
-            object obj = MoodAnalyzerFactory.CreateMoodAnalyze("MAnalyzer.MoodAnalyzer", "MoodAnalyzer");
+            object obj = MoodAnalyzerReflector.CreateMoodAnalyze("MAnalyzer.MoodAnalyzer", "MoodAnalyzer");
             expected.Equals(obj);
             //Assert.AreEqual(expected, obj);
 
@@ -85,7 +85,7 @@ namespace TestProject1
             {
                 string message = null;
                 object expected = new MoodAnalyze(message);
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyze("MAnalyzer.Mood_analyzer", "MoodAnalyzer");
+                object obj = MoodAnalyzerReflector.CreateMoodAnalyze("MAnalyzer.Mood_analyzer", "MoodAnalyzer");
                 expected.Equals(obj);
                 //Assert.AreEqual(expected, obj);
             }
@@ -102,7 +102,7 @@ namespace TestProject1
             {
                 string message = null;
                 object expected = new MoodAnalyze(message);
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyze("MAnalyzer.MoodAnalyzer", "Mood_analyzer");
+                object obj = MoodAnalyzerReflector.CreateMoodAnalyze("MAnalyzer.MoodAnalyzer", "Mood_analyzer");
                 expected.Equals(obj);
                 //Assert.AreEqual(expected, obj);
             }
@@ -116,7 +116,7 @@ namespace TestProject1
         public void GivenClassName_WhenAnalyze_ShouldReturnMoodAnalyzeObjectUsingParamertizedConstructor()
         {
             object expected = new MoodAnalyze("HAPPY");
-            object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "MoodAnalyze", "HAPPY");
+            object obj = MoodAnalyzerReflector.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "MoodAnalyze", "HAPPY");
             expected.Equals(obj);
 
         }
@@ -127,7 +127,7 @@ namespace TestProject1
             try
             {
                 object expected = new MoodAnalyze("HAPPY");
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.Moodanalyze", "MoodAnalyze", "HAPPY");
+                object obj = MoodAnalyzerReflector.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.Moodanalyze", "MoodAnalyze", "HAPPY");
                 expected.Equals(obj);
             }
             catch (Exception ex)
@@ -142,7 +142,7 @@ namespace TestProject1
             try
             {
                 object expected = new MoodAnalyze("HAPPY");
-                object obj = MoodAnalyzerFactory.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "Moodanalyze", "HAPPY");
+                object obj = MoodAnalyzerReflector.CreateMoodAnalyzeUsingParameterizedConstructor("Mood_Analayzer.MoodAnalyze", "Moodanalyze", "HAPPY");
                 expected.Equals(obj);
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace TestProject1
         [Test]
         public void GivenMessageHappy_WhenAnalyze_ShouldReturnHappyUsingInvoke()
         {
-            string result = MoodAnalyzerFactory.InvokeMethod("Happy", "Analyze");
+            string result = MoodAnalyzerReflector.InvokeMethod("Happy", "Analyze");
             Assert.AreEqual("HAPPY", result);
 
         }
@@ -164,12 +164,50 @@ namespace TestProject1
         {
             try
             {
-                string result = MoodAnalyzerFactory.InvokeMethod("Happy", "Analyze_Mood");
+                string result = MoodAnalyzerReflector.InvokeMethod("Happy", "Analyze_Mood");
                 Assert.AreEqual("HAPPY", result);
             }
             catch (Exception ex)
             {
                 Assert.AreEqual(ex.Message, "Method Not Found");
+            }
+
+        }
+        //TC7.1
+        [Test]
+        public void GivenHappyMessage_WhenAnalyze_ShouldReturnHappyusingFieldValue()
+        {
+            string result = MoodAnalyzerReflector.ChangeMoodDyanmically("message", "Happy");
+            Assert.AreEqual("HAPPY", result);
+        }
+        //TC7.2
+        [Test]
+        public void GivenImproperField_WhenAnalyze_ShouldThrowException()
+        {
+            try
+            {
+                string result = MoodAnalyzerReflector.ChangeMoodDyanmically("Text", "Happy");
+                Assert.AreEqual("HAPPY", result);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Field Not Found");
+            }
+
+        }
+
+        //TC7.3
+        [Test]
+        public void GivenNullMessage_WhenAnalyze_ShouldThrowException()
+        {
+            try
+            {
+                string result = MoodAnalyzerReflector.ChangeMoodDyanmically("message", null);
+                Assert.AreEqual("HAPPY", result);
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Message should not be null");
             }
 
         }
